@@ -55,7 +55,6 @@ export default function ServerRequest() {
       renderMonth={(month: any, MonthComponentProps: any) => {
         return <CustomMonth {...MonthComponentProps} />;
       }}
-
     />
   );
 }

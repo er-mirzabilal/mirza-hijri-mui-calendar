@@ -19,7 +19,7 @@ Accessible, customizable, delightful date & time pickers for [@material-ui/core]
 
 </div>
 
-## This project is not longer supported 
+## This project is not longer supported
 
 See [#2157](https://github.com/mui-org/material-ui-pickers/issues/2157) for more details
 
@@ -29,10 +29,10 @@ Note that this package requires `@material-ui/core` **v4**. It will not work wit
 
 ```sh
 // via npm
-npm i @material-ui/pickers
+npm i hijri-mui-calendar@1.0.0
 
 // via yarn
-yarn add @material-ui/pickers
+yarn add hijri-mui-calendar@1.0.0
 ```
 
 ### Getting started

@@ -1,6 +1,6 @@
 {
-  "version": "4.0.0-alpha.11",
-  "private": true,
+  "name": "hijri-mui-calendar",
+  "version": "1.0.0",
   "description": "Material-ui pickers root package",
   "main": "index.js",
   "directories": {
@@ -80,6 +80,5 @@
     "**/webpack": "^4.43.0"
   },
   "dependencies": {
-    "moment-hijri": "^2.1.2"
   }
 }
