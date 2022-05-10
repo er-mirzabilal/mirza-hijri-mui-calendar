@@ -136,11 +136,13 @@ export function CalendarView<TDate>(props: CalendarViewProps<TDate>) {
   React.useEffect(() => {
     changeMonth(date);
   }, [date]); // eslint-disable-line
+  console.log('calendar view', props, hijri, 'hijri');
   return (
     <React.Fragment>
       <CalendarHeader
         {...other}
         view={view}
+        hijri={hijri}
         currentMonth={calendarState.currentMonth}
         changeView={changeView}
         onMonthChange={(newMonth, direction) => handleChangeMonth({ newMonth, direction })}
@@ -195,6 +197,7 @@ export function CalendarView<TDate>(props: CalendarViewProps<TDate>) {
               allowKeyboardControl={allowKeyboardControl}
               loading={loading}
               renderLoading={renderLoading}
+              hijri={hijri}
             />
           )}
         </div>

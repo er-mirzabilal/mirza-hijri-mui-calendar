@@ -2,14 +2,16 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import clsx from 'clsx';
 import ButtonBase, { ButtonBaseProps } from '@material-ui/core/ButtonBase';
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
 import { ExtendMui } from '../../typings/helpers';
 import { onSpaceOrEnter } from '../../_helpers/utils';
 import { useUtils } from '../../_shared/hooks/useUtils';
-import { DAY_SIZE, DAY_MARGIN } from '../../constants/dimensions';
+import { DAY_MARGIN, DAY_SIZE } from '../../constants/dimensions';
 import { useDefaultProps } from '../../_shared/withDefaultProps';
 import { useCanAutoFocus } from '../../_shared/hooks/useCanAutoFocus';
 import { PickerSelectionState } from '../../_shared/hooks/usePickerState';
+import momentHijri from 'moment-hijri';
+import { Typography } from '@material-ui/core';
 
 const muiComponentConfig = { name: 'MuiPickersDay' };
 
@@ -19,7 +21,7 @@ export const useStyles = makeStyles(
       ...theme.typography.caption,
       width: DAY_SIZE,
       height: DAY_SIZE,
-      borderRadius: '50%',
+      borderRadius: '20%',
       padding: 0,
       // background required here to prevent collides with the other days when animating with transition group
       backgroundColor: theme.palette.background.paper,
@@ -65,7 +67,7 @@ export const useStyles = makeStyles(
       },
     },
     dayLabel: {
-      // need for overrides
+      display: 'box',
     },
     selected: {},
     disabled: {},
@@ -134,6 +136,7 @@ export interface DayProps<TDate> extends ExtendMui<ButtonBaseProps> {
   allowSameDateSelection?: boolean;
   onDayFocus?: (day: TDate) => void;
   onDaySelect: (day: TDate, isFinish: PickerSelectionState) => void;
+  hijri?: boolean
 }
 
 function PureDay<TDate>(props: DayProps<TDate>) {
@@ -158,6 +161,7 @@ function PureDay<TDate>(props: DayProps<TDate>) {
     selected = false,
     showDaysOutsideCurrentMonth = false,
     today: isToday = false,
+    hijri,
     ...other
   } = useDefaultProps(props, muiComponentConfig);
 
@@ -223,7 +227,6 @@ function PureDay<TDate>(props: DayProps<TDate>) {
     // Do not render button and not attach any listeners for empty days
     return <div aria-hidden className={clsx(dayClassName, classes.hiddenDaySpacingFiller)} />;
   }
-
   return (
     <ButtonBase
       ref={ref}
@@ -238,7 +241,18 @@ function PureDay<TDate>(props: DayProps<TDate>) {
       onKeyDown={handleKeyDown}
       onClick={handleClick}
     >
-      <span className={classes.dayLabel}>{utils.format(day, 'dayOfMonth')}</span>
+      {hijri ? (
+        <div>
+          <div>
+            <Typography variant="body2" >{utils.format(day, 'dayOfMonth')}</Typography>
+          </div>
+          <div>
+            <span ><Typography variant="caption" color='secondary'> {momentHijri(day).iDate()} </Typography></span>
+          </div>
+        </div>
+      ):( <span className={classes.dayLabel}>{utils.format(day, 'dayOfMonth')}</span>) }
+
+
     </ButtonBase>
   );
 }

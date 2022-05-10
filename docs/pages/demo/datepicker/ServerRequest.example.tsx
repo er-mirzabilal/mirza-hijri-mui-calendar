@@ -53,25 +53,9 @@ export default function ServerRequest() {
       renderInput={(props) => <TextField {...props} />}
       renderLoading={() => <CalendarSkeleton />}
       renderMonth={(month: any, MonthComponentProps: any) => {
-        console.log("renderMonth", month, MonthComponentProps);
         return <CustomMonth {...MonthComponentProps} />;
       }}
-      hijri={true}
-      renderDay={(day, value, DayComponentProps) => {
-        const date = makeJSDateObject(day ?? new Date()); // skip this step, it is required to support date libs
-        const isSelected =
-          DayComponentProps.inCurrentMonth && highlightedDays.includes(date.getDate());
 
-        return (
-          <Badge
-            key={date.toString()}
-            overlap="circle"
-            badgeContent={isSelected ? '🌚' : undefined}
-          >
-            <PickersDay {...DayComponentProps} />
-          </Badge>
-        );
-      }}
     />
   );
 }

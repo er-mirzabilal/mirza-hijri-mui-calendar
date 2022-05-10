@@ -61,6 +61,7 @@ export interface CalendarProps<TDate> extends ExportedCalendarProps<TDate> {
   onMonthSwitchingAnimationEnd: () => void;
   TransitionProps?: Partial<SlideTransitionProps>;
   className?: string;
+  hijri?: boolean
 }
 
 const muiComponentConfig = { name: 'MuiPickersCalendar' };
@@ -80,9 +81,10 @@ export const useStyles = makeStyles((theme) => {
       overflow: 'hidden',
     },
     week: {
-      margin: `${DAY_MARGIN}px 0`,
+      margin: `12px 0`,
       display: 'flex',
       justifyContent: 'center',
+      borderBottom: '1px solid #f0f0f0'
     },
     iconButton: {
       zIndex: 1,
@@ -130,6 +132,7 @@ export function Calendar<TDate>(props: CalendarProps<TDate>) {
     showDaysOutsideCurrentMonth,
     slideDirection,
     TransitionProps,
+    hijri
   } = useDefaultProps(props, muiComponentConfig);
 
   const now = useNow<TDate>();
@@ -225,8 +228,8 @@ export function Calendar<TDate>(props: CalendarProps<TDate>) {
                       utils.toJsDate(nowFocusedDay).getDate() === utils.toJsDate(day).getDate(),
                     onDayFocus: changeFocusedDay,
                     onDaySelect: handleDaySelect,
+                    hijri
                   };
-
                   return renderDay ? (
                     renderDay(day, selectedDates, dayProps)
                   ) : (

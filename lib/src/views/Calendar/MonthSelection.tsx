@@ -37,7 +37,6 @@ export function MonthSelection<TDate>({
   onChange,
   onMonthChange,
   renderMonth,
-  hijri
 }: MonthSelectionProps<TDate>) {
   const utils = useUtils<TDate>();
   const now = useNow<TDate>();
@@ -71,7 +70,6 @@ export function MonthSelection<TDate>({
     [date, now, onChange, onMonthChange, utils]
   );
 
-  console.log('hijri-month', hijri);
   return (
     <div className={classes.root}>
       {utils.getMonthArray(date || now).map((month) => {

@@ -49,7 +49,6 @@ export const Month: React.FC<MonthProps> = (props) => {
     onSelect(value);
   };
 
-  console.log(value, other, '--')
   return (
     <Typography
       data-mui-test="month"

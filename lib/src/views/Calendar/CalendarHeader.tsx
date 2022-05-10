@@ -5,6 +5,8 @@ import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import momentHijri from  'moment-hijri';
+import moment from 'moment';
 import { DatePickerView } from '../../DatePicker';
 import { SlideDirection } from './SlideTransition';
 import { useUtils } from '../../_shared/hooks/useUtils';
@@ -41,6 +43,7 @@ export interface CalendarHeaderProps<TDate>
   reduceAnimations: boolean;
   changeView: (view: DatePickerView) => void;
   onMonthChange: (date: TDate, slideDirection: SlideDirection) => void;
+  hijri: boolean
 }
 
 export const useStyles = makeStyles(
@@ -80,6 +83,9 @@ export const useStyles = makeStyles(
     monthText: {
       marginRight: 4,
     },
+    hijriDate: {
+      marginLeft: 24
+    }
   }),
   { name: 'MuiPickersCalendarHeader' }
 );
@@ -89,7 +95,20 @@ function getSwitchingViewAriaText(view: DatePickerView) {
     ? 'year view is open, switch to calendar view'
     : 'calendar view is open, switch to year view';
 }
-
+const HIJRI_MONTHS: any = [
+  'Muharram',
+  'Safar',
+  'Rabi-ul-Awwal',
+  'Rabi-us Sani',
+  'Jamadi-ul-Awwal',
+  'Jamadi-us-Sani',
+  'Rajab',
+  'Shaban',
+  'Ramadan',
+  'Shawal',
+  'Zil-Qadah',
+  'Zul-Hijah'
+]
 export function CalendarHeader<TDate>(props: CalendarHeaderProps<TDate>) {
   const {
     view: currentView,
@@ -109,6 +128,7 @@ export function CalendarHeader<TDate>(props: CalendarHeaderProps<TDate>) {
     leftArrowButtonText = 'previous month',
     rightArrowButtonText = 'next month',
     getViewSwitchingButtonText = getSwitchingViewAriaText,
+    hijri
   } = props;
 
   const utils = useUtils<TDate>();
@@ -133,8 +153,19 @@ export function CalendarHeader<TDate>(props: CalendarHeaderProps<TDate>) {
       changeView(views[nextIndexToOpen]);
     }
   };
-
-  console.log(utils, 'utils', month);
+  const daysInMonth = moment(month).daysInMonth();
+  const hijriMonths: any[] = [];
+  const hijriMonthYears = [];
+  for (let i = 0; i < daysInMonth; i++ ){
+    const formattedDate = moment(month);
+    formattedDate.add(i, 'days');
+    const hijriMonth =  momentHijri(formattedDate).iMonth();
+    const hijriYear  =  momentHijri(formattedDate).iYear();
+    if(!hijriMonths.includes(hijriMonth)){
+      hijriMonths.push(hijriMonth);
+      hijriMonthYears.push({'month': hijriMonth, 'year': hijriYear});
+    }
+  }
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -197,6 +228,12 @@ export function CalendarHeader<TDate>(props: CalendarHeaderProps<TDate>) {
           />
         </Fade>
       </div>
+      {hijri ? (
+        <div className={classes.hijriDate}>
+          {hijriMonthYears.map((item) => (<Typography variant="caption" color="secondary"> {`${HIJRI_MONTHS[item.month]  } ${  item.year  },`}</Typography>))}
+        </div>
+      ): ''}
+
     </React.Fragment>
   );
 }
