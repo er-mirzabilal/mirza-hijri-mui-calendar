@@ -3,12 +3,29 @@ import * as PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useForkRef } from '@material-ui/core/utils';
+// @ts-ignore
+import momentHijri from  'moment-hijri';
+import moment from 'moment';
 import { useUtils } from './hooks/useUtils';
 import { CalendarIcon } from './icons/CalendarIcon';
 import { useMaskedInput } from './hooks/useMaskedInput';
 import { DateInputProps, DateInputRefs } from './PureDateInput';
 import { getTextFieldAriaText } from '../_helpers/text-field-helper';
 
+const HIJRI_MONTHS: any = [
+  'Muharram',
+  'Safar',
+  'Rabi-ul-Awwal',
+  'Rabi-us Sani',
+  'Jamadi-ul-Awwal',
+  'Jamadi-us-Sani',
+  'Rajab',
+  'Shaban',
+  'Ramadan',
+  'Shawal',
+  'Zil-Qadah',
+  'Zul-Hijah'
+]
 export const KeyboardDateInput: React.FC<DateInputProps & DateInputRefs> = ({
   containerRef,
   inputRef = null,
@@ -28,10 +45,24 @@ export const KeyboardDateInput: React.FC<DateInputProps & DateInputRefs> = ({
   const textFieldProps = useMaskedInput(other);
   const adornmentPosition = InputAdornmentProps?.position || 'end';
 
+  const value = textFieldProps?.inputProps?.value;
+  let updatedProps = textFieldProps;
+
+  if(value && !textFieldProps.error) {
+    const momentDate = moment(value);
+    const hijriDate =  momentHijri(momentDate);
+    const formattedHijriDate = `${hijriDate.iDate()} ${ HIJRI_MONTHS[hijriDate.iMonth()]} ${hijriDate.iYear()}`
+    updatedProps = {...textFieldProps, inputProps: {
+        ...textFieldProps.inputProps,
+        value: textFieldProps?.inputProps?.value ? `${textFieldProps?.inputProps?.value  }  -  ${  formattedHijriDate}` : ''
+      },
+    }
+  }
+
   return renderInput({
     ref: containerRef,
     inputRef: inputRefHandle,
-    ...textFieldProps,
+    ...updatedProps,
     InputProps: {
       ...InputProps,
       [`${adornmentPosition}Adornment`]: hideOpenPickerButton ? undefined : (

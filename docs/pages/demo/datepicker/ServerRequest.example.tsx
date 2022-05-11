@@ -43,7 +43,9 @@ export default function ServerRequest() {
   // @ts-ignore
 
   return (
+
     <DatePicker
+      clearable
       views={['year', 'month', 'date']}
       value={value}
       loading={highlightedDays === null}
@@ -55,6 +57,7 @@ export default function ServerRequest() {
       renderMonth={(month: any, MonthComponentProps: any) => {
         return <CustomMonth {...MonthComponentProps} />;
       }}
+      hijri
     />
   );
 }

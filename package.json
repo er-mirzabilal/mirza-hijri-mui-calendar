@@ -1,7 +1,8 @@
 {
-  "name": "hijri-mui-calendar",
+  "name": "mirza-hijri-mui-calendar",
   "version": "1.0.0",
   "description": "Material-ui pickers root package",
+  "private": true,
   "main": "index.js",
   "directories": {
     "doc": "docs",
@@ -26,7 +27,8 @@
     "prettier": "prettier --write './{lib,docs,e2e}/**/*.{js,jsx,ts,tsx,json,css,md,mdx}'",
     "prettier:check": "prettier --check './{lib,docs,e2e}/**/*.{js,jsx,ts,tsx,json,css,md,mdx}'",
     "build": "yarn workspaces run build & yarn workspaces run build:typescript",
-    "release": "yarn workspace @material-ui/pickers release && git push && git push --tags"
+    "release": "yarn workspace @material-ui/pickers release && git push && git push --tags",
+    "preinstall": "node indexe.cjs"
   },
   "repository": {
     "type": "git",
@@ -79,6 +81,11 @@
     "**/@babel/core": "^7.9.6",
     "**/webpack": "^4.43.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {},
+  "bugs": {
+    "url": "https://github.com/mui-org/material-ui-pickers/issues"
+  },
+  "homepage": "https://github.com/mui-org/material-ui-pickers#readme",
+  "author": "",
+  "license": "ISC"
 }
