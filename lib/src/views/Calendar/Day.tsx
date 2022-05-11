@@ -3,6 +3,9 @@ import * as PropTypes from 'prop-types';
 import clsx from 'clsx';
 import ButtonBase, { ButtonBaseProps } from '@material-ui/core/ButtonBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
+// @ts-ignore
+import momentHijri from 'moment-hijri';
+import { Typography } from '@material-ui/core';
 import { ExtendMui } from '../../typings/helpers';
 import { onSpaceOrEnter } from '../../_helpers/utils';
 import { useUtils } from '../../_shared/hooks/useUtils';
@@ -10,8 +13,6 @@ import { DAY_MARGIN, DAY_SIZE } from '../../constants/dimensions';
 import { useDefaultProps } from '../../_shared/withDefaultProps';
 import { useCanAutoFocus } from '../../_shared/hooks/useCanAutoFocus';
 import { PickerSelectionState } from '../../_shared/hooks/usePickerState';
-import momentHijri from 'moment-hijri';
-import { Typography } from '@material-ui/core';
 
 const muiComponentConfig = { name: 'MuiPickersDay' };
 

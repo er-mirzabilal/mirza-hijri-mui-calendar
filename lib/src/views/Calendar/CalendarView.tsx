@@ -136,7 +136,6 @@ export function CalendarView<TDate>(props: CalendarViewProps<TDate>) {
   React.useEffect(() => {
     changeMonth(date);
   }, [date]); // eslint-disable-line
-  console.log('calendar view', props, hijri, 'hijri');
   return (
     <React.Fragment>
       <CalendarHeader

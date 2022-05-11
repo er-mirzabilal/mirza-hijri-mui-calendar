@@ -1,7 +1,8 @@
 {
-  "name": "hijri-mui-calendar",
+  "name": "mirza-hijri-mui-calendar",
   "version": "1.0.0",
   "description": "Material-ui pickers root package",
+  "private": true,
   "main": "index.js",
   "directories": {
     "doc": "docs",
@@ -79,6 +80,11 @@
     "**/@babel/core": "^7.9.6",
     "**/webpack": "^4.43.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {},
+  "bugs": {
+    "url": "https://github.com/mui-org/material-ui-pickers/issues"
+  },
+  "homepage": "https://github.com/mui-org/material-ui-pickers#readme",
+  "author": "",
+  "license": "ISC"
 }

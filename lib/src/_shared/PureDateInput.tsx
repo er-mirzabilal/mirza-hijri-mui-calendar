@@ -146,6 +146,7 @@ export const PureDateInput: React.FC<DateInputProps & DateInputRefs> = ({
       onKeyDown: onSpaceOrEnter(onOpen),
     },
     ...TextFieldProps,
+
   });
 };
 
